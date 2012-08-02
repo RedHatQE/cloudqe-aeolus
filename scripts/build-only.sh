@@ -27,10 +27,12 @@ if [ $# -gt 0 ]; then
 else
     # Should yield something like: git://github.com/clalancette/oz.git
     REMOTE_URL=$(git config --get remote.origin.url)
-    # Get the basename, should yield: oz.git
-    PROJECT=$(basename $REMOTE_URL)
-    # Remove the trailing .git (should yield: oz)
-    PROJECT=${PROJECT%%.git}
+    if [ -n "$REMOTE_URL" ]; then
+        # Get the basename, should yield: oz.git
+        PROJECT=$(basename $REMOTE_URL)
+        # Remove the trailing .git (should yield: oz)
+        PROJECT=${PROJECT%%.git}
+    fi
 fi
 
 if [ -z "$PROJECT" ]; then
